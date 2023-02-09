@@ -8,8 +8,17 @@
 - [Tools and Services](#hammer_and_wrench-tools-and-services)
 - [Architecture of this project](#house-architecture-of-this-project)
 - [Steps to execute the project](#zap-steps-to-execute-the-project)
-  - [Login to AWS Account ](#key-login-to-aws-account )
- 
+  - [Login to AWS Account ](#key-login-to-aws-account)
+  - [Create ec2 instance to run ansible playbook](#package-create-ec2-instance-to-run-ansible-playbook)
+  - [Install Ansible](#package-install-ansible)
+  - [Install boto](#package-install-boto)
+  - [Setup ec2 Role for ansible](#package-setup-ec2-role-for-ansible)
+  - [Create a project directory](#package-create-a-project-directory)
+  - [Execute a sample cloud task](#package-execute-a-sample-cloud-task)
+  - [Create Variables File for VPC & Bastion host](#package-create-variables-file-for-vpc-&-bastion-host)
+  - [Create VPC Setup Playbook](#package-create-vpc-setup-playbook)
+  - [Create Bastion setup playbook](#package-create-bastion-setup-playbook) 
+  - [Site.yml playbook to call both playbook at once](#package-site.yml-playbook-to-call-both-playbook-at-once)
 - [Resources](#page_facing_up-resources)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 
@@ -84,6 +93,16 @@
 
 
 
+Create ec2 instance to run ansible playbook
+Install Ansible
+Install boto
+Setup ec2 Role for ansible
+Create a project directory
+Execute a sample cloud task 
+Create Variables File for VPC & Bastion host
+Create VPC Setup Playbook
+Create Bastion setup playbook
+Site.yml playbook to call both playbook at once
 
 
 
