@@ -1,5 +1,5 @@
 
-# Project-03
+# Project-10
 ## :ledger: Index
 
 - [About The Project](#beginner-about-the-project)
@@ -27,7 +27,7 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -35,7 +35,7 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -43,7 +43,7 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -59,7 +59,7 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -70,7 +70,7 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -78,7 +78,7 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -87,31 +87,98 @@
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
 
 
-Create ec2 instance to run ansible playbook
-Install Ansible
-Install boto
-Setup ec2 Role for ansible
-Create a project directory
-Execute a sample cloud task 
-Create Variables File for VPC & Bastion host
-Create VPC Setup Playbook
-Create Bastion setup playbook
-Site.yml playbook to call both playbook at once
+### :package: Create ec2 instance to run ansible playbook
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Install Ansible
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Install boto
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Setup ec2 Role for ansible
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Create a project directory
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Execute a sample cloud task 
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Create Variables File for VPC & Bastion host
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Create VPC Setup Playbook
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Create Bastion setup playbook
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Site.yml playbook to call both playbook at once
 
 
-
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
 
 ## :page_facing_up: Resources
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
@@ -121,6 +188,6 @@ Site.yml playbook to call both playbook at once
 
 <br/>
 <div align="right">
-    <b><a href="#Project-03">↥ back to top</a></b>
+    <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
