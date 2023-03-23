@@ -502,7 +502,7 @@ ansible-playbook vpc_setup.ymlo
 #### :package: Create a NAT Gateway and Private Route Table Playbook
 
 
-- On your IDE add the following NAT gateway and private route table code to your `vpc_setup.yml` playboo
+- On your IDE add the following NAT gateway and private route table code to your `vpc_setup.yml` playbook
 
 
 ```sh
@@ -551,6 +551,38 @@ ansible-playbook vpc_setup.ymlo
             gateway_id: "{{ natgw3_out.nat_gateway_id }}"
       register: privRT3_out
 
+   ```
+
+
+
+
+- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
+
+- RUN the play book using the following command on your AWS Ansible machine 
+
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- On your AWS Console search for VPC service to view changes
+
+-![Project Image](project-image-url)
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+### :package: Store ID's to Variables file
+
+- On your IDE add the following code to Store ID's to Variables to your `vpc_setup.yml` playbook
+
+
+```sh
+
     - debug:
         var: "{{ item }}"
       loop:
@@ -591,28 +623,12 @@ ansible-playbook vpc_setup.ymlo
         dest: vars/output_vars
    ```
 
-
-
-
-- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
-
-- RUN the play book using the following command on your AWS Ansible machine 
-
-```sh
-ansible-playbook vpc_setup.ymlo
-   ```
-   
-  ![Project Image](project-image-url)
-  
-- On your AWS Console search for VPC service to view changes
-
--![Project Image](project-image-url)
-
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
+
 
 ### :package: Create Bastion setup playbook
 
