@@ -10,8 +10,7 @@
 - [Steps to execute the project](#zap-steps-to-execute-the-project)
   - [Login to AWS Account ](#key-login-to-aws-account)
   - [Create ec2 instance to run ansible playbook](#package-create-ec2-instance-to-run-ansible-playbook)
-  - [Install Ansible](#package-install-ansible)
-  - [Install boto](#package-install-boto)
+  - [Install Ansible Manually](#package-install-ansible-manually)
   - [Setup ec2 Role for ansible](#package-setup-ec2-role-for-ansible)
   - [Create a project directory](#package-create-a-project-directory)
   - [Execute a sample cloud task](#package-execute-a-sample-cloud-task)
@@ -50,12 +49,8 @@
 ## :hammer_and_wrench: Tools and Services
 - visual studio code or an IDE
 - AWS Account
-- Nexus
-- SonarQube
-- Slack
-- Maven
-- JDK8
-- Github Account
+- GitHub account
+- Git
 
 <br/>
 <div align="right">
@@ -84,7 +79,14 @@
 
 ### :key: Login to AWS Account
 
+- Login to your AWS management console and choose ohio region for this project. Create an AWS account if you don't have one. 
 
+ ```sh
+Account ID (12 digits) or account alias: <Enter your credentials>
+IAM user name: <Your IAM user name>
+Password: <Your password>
+   ```
+   
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
@@ -95,13 +97,44 @@
 
 ### :package: Create ec2 instance to run ansible playbook
 
+- On your console under `EC2`->`Instances` click `launch instances`.
+- We will create ec2 instance to run ansible playbook with below details.
+
+ ```sh
+Name: Control-Machine
+AMI: Ubuntu 20 and above
+Instance Type: t2.micro
+Security Group Nmae: Ansible-sg
+Security group rules: allow SSH on port 22 from MYIP
+ key pair: Ansible-ohio-key
+   ```
+- Let;s launch our Ansible machine with some userdata as given below.
+
+```sh
+#!/bin/bash
+apt update
+apt install ansible -y
+   ```
+   
+- SSH into your Ansible machine check your version of ansible .
+
+ ```sh
+ssh -i <directory of your key pair/key pair> ubuntu
+ansible --version
+   ```
+   
+
+     
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
 </div>
 <br/>
 
-### :package: Install Ansible
+### :package: Install Ansible Manually 
+
+- If you are using ubuntu 18 you have to install ansible manually from the ansible repository.
+- Checkout [ansible AWS documentation here](https://ansible-docs.readthedocs.io/zh/stable-2.0/rst/guide_aws.html)
 
 <br/>
 <div align="right">
@@ -109,15 +142,24 @@
 </div>
 <br/>
 
-### :package: Install boto
-
-<br/>
-<div align="right">
-    <b><a href="#Project-10">↥ back to top</a></b>
-</div>
-<br/>
 
 ### :package: Setup ec2 Role for ansible
+   
+- On the console, search for  EC2 instance service. Goto `Actions` --> `Security` --> `Modify IAM Role`
+- Create an IAM role for our Ansible machine to use with the following details.
+
+```sh
+Service: EC2
+Policy: AdministratorAccess
+Role name: ansible-admin
+   ```
+- Install AWS CLI on your ansible machine and test your authentication using the command below 
+
+
+```sh
+sudo apt install awscli -y
+aws sts get-caller-identity
+   ```
 
 <br/>
 <div align="right">
