@@ -168,7 +168,14 @@ aws sts get-caller-identity
 <br/>
 
 ### :package: Create a project directory
+- On your Ansible machine, create a new directory with the following details.
 
+```sh
+mkdir vpc-stack-vprofile
+cd vpc-stack-vprofile
+vim test-aws.yml
+   ```
+   
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
@@ -176,6 +183,57 @@ aws sts get-caller-identity
 <br/>
 
 ### :package: Execute a sample cloud task 
+- Checkout [ansible AWS documentation here](https://docs.ansible.com/ansible/2.9/modules/list_of_cloud_modules.html) we coppied our sample cloud task below from there.
+- Open the file `test-aws.yml` with this command `vim test-aws.yml` paste the content below.Make sure you take care of the indentation
+
+```sh
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - name: sample ec2 key
+      ec2_key:
+        name: my_keypair
+        region: us-east-2
+   ```
+- Try runing this playbook with the command `ansible-playbook test-aws.yml`, you will notice that it faills because python3 is not installed on your Ansible machine.  
+
+### :package: Install boto
+
+- On AWS bot is the SDK for python.
+- Lt's install bot with the following command 
+- 
+```sh
+sudo apt search boto
+sudo apt install python3-boto3 -y
+   ```
+- Run the playbook again,  you will notice that it is successfull because boto3 is installed.
+
+- Add more tasks to our `test-aws.yml` playbook as given below.
+
+```sh
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - name: sample ec2 key
+      ec2_key:
+        name: my_keypair
+        region: us-east-2
+      register: keyout
+
+    - debug:
+        var: keyout
+
+    - name: store login key
+      copy:
+        content: "{{keyout.key.private_key}}"
+        dest: ./sample-key.pem
+      when: keyout.changed
+   ```
+   
+- Our key pair is now created and store stored. In our first task, the key pair was created but not store by adding the above lines to our code, we can now store our key pair. 
+
 
 <br/>
 <div align="right">
