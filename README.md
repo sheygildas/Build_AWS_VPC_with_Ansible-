@@ -343,6 +343,98 @@ ansible-playbook vpc_setup.ymlo
 
 #### :package: Create a Subnet Playbook
 
+- On your IDE add the following subnet code to your `vpc_setup.yml` playbook
+
+
+```sh
+#    - debug:
+#        var: vpcout
+
+    - name: create Public Subnet 1 in Zone1
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone1}}"
+        state: "{{state}}"
+        cidr: "{{PubSub1Cidr}}"
+        map_public: yes
+        tags:
+            Name: vprofile-pubsub1
+      register: pubsub1_out
+
+    - name: create Public Subnet 2 in Zone2
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone2}}"
+        state: "{{state}}"
+        cidr: "{{PubSub2Cidr}}"
+        map_public: yes
+        tags:
+          Name: vprofile-pubsub2
+      register: pubsub2_out
+
+    - name: create Public Subnet 3 in Zone3
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone3}}"
+        state: "{{state}}"
+        cidr: "{{PubSub3Cidr}}"
+        map_public: yes
+        tags:
+          Name: vprofile-pubsub3
+      register: pubsub3_out
+
+    - name: create Private Subnet 1 in Zone1
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone1}}"
+        state: "{{state}}"
+        cidr: "{{PrivSub1Cidr}}"
+        map_public: yes
+        tags:
+            Name: vprofile-privsub1
+      register: privsub1_out
+
+    - name: create Private Subnet 2 in Zone2
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone2}}"
+        state: "{{state}}"
+        cidr: "{{PrivSub2Cidr}}"
+        map_public: yes
+        tags:
+          Name: vprofile-privsub2
+      register: privsub2_out
+
+    - name: create Private Subnet 3 in Zone3
+      ec2_vpc_subnet:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        az: "{{zone3}}"
+        state: "{{state}}"
+        cidr: "{{PrivSub3Cidr}}"
+        map_public: yes
+        tags:
+          Name: vprofile-privsub3
+      register: privsub3_out
+   ```
+   
+- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
+
+- RUN the play book using the following command on your AWS Ansible machine 
+
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- On your AWS Console search for VPC service to view changes
+
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
