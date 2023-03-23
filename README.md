@@ -14,10 +14,10 @@
   - [Setup ec2 Role for ansible](#package-setup-ec2-role-for-ansible)
   - [Create a project directory](#package-create-a-project-directory)
   - [Execute a sample cloud task](#package-execute-a-sample-cloud-task)
-  - [Create Variables File for VPC & Bastion host](#package-create-variables-file-for-vpc-and-bastion-host)
+  - [Create Variables File for VPC and Bastion host](#package-create-variables-file-for-vpc-and-bastion-host)
   - [Create VPC Setup Playbook](#package-create-vpc-setup-playbook)
   - [Create Bastion setup playbook](#package-create-bastion-setup-playbook) 
-  - [Site.yml playbook to call both playbook at once](#package-site.yml-playbook-to-call-both-playbook-at-once)
+  - [Clean Up](#package-clean-up)
 - [Resources](#page_facing_up-resources)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 
@@ -779,7 +779,7 @@ ansible-playbook bastion-host.yml
 </div>
 <br/>
 
-### :package: Site.yml playbook to call both playbook at once
+### :package: Clean Up 
 
 
 <br/>
