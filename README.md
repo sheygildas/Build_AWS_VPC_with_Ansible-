@@ -435,6 +435,8 @@ ansible-playbook vpc_setup.ymlo
   
 - On your AWS Console search for VPC service to view changes
 
+-![Project Image](project-image-url)
+
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
@@ -443,6 +445,54 @@ ansible-playbook vpc_setup.ymlo
 
 #### :package: Create Internet Gateway and  Public Route Table Playbook
 
+
+- On your IDE add the following internet gateway and  Public route table code to your `vpc_setup.yml` playbook
+
+```sh
+ - name: Internet Gateway Setup
+      ec2_vpc_igw:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        state:  "{{state}}"
+        tags:
+          Name: vprofile-igw
+      register: igw_out
+
+    - name: Setup Public Subnet Route Table
+      ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        tags:
+          Name: Vprofile-PubRT
+        subnets:
+            - "{{ pubsub1_out.subnet.id }}"
+            - "{{ pubsub2_out.subnet.id }}"
+            - "{{ pubsub3_out.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ igw_out.gateway_id }}"
+      register: pubRT_out
+   ```
+   
+   
+   
+  
+
+
+- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
+
+- RUN the play book using the following command on your AWS Ansible machine 
+
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- On your AWS Console search for VPC service to view changes
+
+-![Project Image](project-image-url)
+
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
@@ -450,6 +500,31 @@ ansible-playbook vpc_setup.ymlo
 <br/>
 
 #### :package: Create a NAT Gateway and Private Route Table Playbook
+
+
+- On your IDE add the following NAT gateway and private route table code to your `vpc_setup.yml` playboo
+
+
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+
+
+
+
+- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
+
+- RUN the play book using the following command on your AWS Ansible machine 
+
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- On your AWS Console search for VPC service to view changes
+
+-![Project Image](project-image-url)
 
 <br/>
 <div align="right">
