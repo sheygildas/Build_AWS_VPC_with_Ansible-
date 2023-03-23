@@ -327,7 +327,8 @@ instanceType: t2.micro
 - RUN the play book using the following command on your AWS Ansible machine 
 
 ```sh
-ansible-playbook vpc_setup.ymlo
+ansible-playbook vpc_setup.yml
+
    ```
    
   ![Project Image](project-image-url)
@@ -428,7 +429,7 @@ ansible-playbook vpc_setup.ymlo
 - RUN the play book using the following command on your AWS Ansible machine 
 
 ```sh
-ansible-playbook vpc_setup.ymlo
+ansible-playbook vpc_setup.yml
    ```
    
   ![Project Image](project-image-url)
@@ -484,7 +485,7 @@ ansible-playbook vpc_setup.ymlo
 - RUN the play book using the following command on your AWS Ansible machine 
 
 ```sh
-ansible-playbook vpc_setup.ymlo
+ansible-playbook vpc_setup.yml
    ```
    
   ![Project Image](project-image-url)
@@ -561,7 +562,7 @@ ansible-playbook vpc_setup.ymlo
 - RUN the play book using the following command on your AWS Ansible machine 
 
 ```sh
-ansible-playbook vpc_setup.ymlo
+ansible-playbook vpc_setup.yml
    ```
    
   ![Project Image](project-image-url)
@@ -627,7 +628,7 @@ ansible-playbook vpc_setup.ymlo
 - - RUN the play book using the following command on your AWS Ansible machine 
 
 ```sh
-ansible-playbook vpc_setup.ymlo
+ansible-playbook vpc_setup.yml
    ```
    
   ![Project Image](project-image-url)
@@ -648,6 +649,129 @@ cat vars/output_vars
 
 
 ### :package: Create Bastion setup playbook
+
+- Create a `bastion-host.yml` playbook with the details below
+
+```sh
+---
+- name: Setup Vprofile Bastion Host
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Import VPC setup variable
+      include_vars: vars/bastion_setup
+
+    - name: Import VPC setup Variable
+      include_vars: vars/output_vars
+
+    - name: Create vprofile ec2 key
+      ec2_key:
+        name: "{{ keyName }}"
+        region: "{{ region }}"
+      register: key_out
+
+    - name: Save private key into file bastion-key.pem
+      copy:
+        content: "{{ key_out.key.private_key }}"
+        dest: "./bastion-key.pem"
+        mode: 0600
+      when: key_out.changed
+
+    - name: Create Sec Grp for Bastion Host
+      ec2_group:
+        name: Bastion-host-sg
+        description: Allow port 22 from everywhere and all port within sg
+        vpc_id: "{{ vpcid }}"
+        region: "{{ region }}"
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{ MYIP }}"
+      register: BastionSG_out
+
+    - name: Creating Bastion Host
+      ec2:
+        key_name: "{{ keyName }}"
+        region: "{{ region }}"
+        instance_type: "{{ instanceType }}"
+        image: "{{ bastion_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "Bastion_host"
+          Project: Vprofile
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "Bastion_host"
+          Project: Vprofile
+          Owner: DevOps Team
+        group_id: "{{ BastionSG_out.group_id }}"
+        vpc_subnet_id: "{{ pubsub3id }}"
+        assign_public_ip: yes
+      register: bastionHost_out
+
+    - name: Creating EC2 in privsub1
+      ec2:
+        key_name: "{{ keyName }}"
+        region: "{{ region }}"
+        instance_type: "{{ instanceType }}"
+        image: "{{ bastion_ami }}"
+        wait: yes
+        wait_timeout: 300
+        instance_tags:
+          Name: "privsub1Instance"
+          Project: Vprofile
+          Owner: DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "privsub1Instance"
+          Project: Vprofile
+          Owner: DevOps Team
+        vpc_subnet_id: "{{ privsub1id }}"
+        assign_public_ip: yes
+      register: privsub1Instance_out
+
+    - name: Creating EC2 in privsub3
+      ec2:
+         key_name: "{{ keyName }}"
+         region: "{{ region }}"
+         instance_type: "{{ instanceType }}"
+         image: "{{ bastion_ami }}"
+         wait: yes
+         wait_timeout: 300
+         instance_tags:
+           Name: "privsub3Instance"
+           Project: Vprofile
+           Owner: DevOps Team
+         exact_count: 1
+         count_tag:
+           Name: "privsub3Instance"
+           Project: Vprofile
+           Owner: DevOps Team
+         vpc_subnet_id: "{{ privsub3id }}"
+         assign_public_ip: yes
+         group_id: "{{ BastionSG_out.group_id }}"
+      register: privsub3Instance_outGo to Ansible server. First Git pull, then run the playbook.Check BastionHost from AWS console.
+
+   ```
+
+- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
+
+- RUN the play book using the following command on your AWS Ansible machine 
+
+```sh
+ansible-playbook bastion-host.yml
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- On your AWS Console search for VPC service to view changes
+
+-![Project Image](project-image-url)
+
 
 <br/>
 <div align="right">
