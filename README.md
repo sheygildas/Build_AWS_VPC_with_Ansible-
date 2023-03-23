@@ -506,7 +506,89 @@ ansible-playbook vpc_setup.ymlo
 
 
 ```sh
-ansible-playbook vpc_setup.ymlo
+ - name: NAT Gateway1 Setup and allocate new EIP if NATGW does not exist yet in the subnet
+      ec2_vpc_nat_gateway:
+        subnet_id: "{{ pubsub1_out.subnet.id }}"
+        region: "{{region}}"
+        state:  "{{state}}"
+        wait: yes
+        if_exist_do_not_create: yes
+      register: natgw1_out
+
+    - name: Setup Private Subnet Route Table
+      ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        tags:
+          Name: Vprofile-PrivRT1
+        subnets:
+            - "{{ privsub1_out.subnet.id }}"
+            - "{{ privsub2_out.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ natgw1_out.nat_gateway_id }}"
+      register: privRT1_out
+
+    - name: NAT Gateway3 Setup and allocate new EIP if NATGW does not exist yet in the subnet
+      ec2_vpc_nat_gateway:
+        subnet_id: "{{ pubsub3_out.subnet.id }}"
+        region: "{{region}}"
+        state:  "{{state}}"
+        wait: yes
+        if_exist_do_not_create: yes
+      register: natgw3_out
+
+    - name: Setup Private Subnet Route Table2
+      ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        tags:
+          Name: Vprofile-PrivRT3
+        subnets:
+            - "{{ privsub3_out.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ natgw3_out.nat_gateway_id }}"
+      register: privRT3_out
+
+    - debug:
+        var: "{{ item }}"
+      loop:
+        - vpcout.vpc.id
+        - pubsub1_out.subnet.id
+        - pubsub2_out.subnet.id
+        - pubsub3_out.subnet.id
+        - privsub1_out.subnet.id
+        - privsub2_out.subnet.id
+        - privsub3_out.subnet.id
+        - igw_out.gateway_id
+        - pubRT_out.route_table.id
+        - natgw1_out.nat_gateway_id
+        - privRT1_out.route_table.id
+        - natgw3_out.nat_gateway_id
+        - privRT3_out.route_table.id
+
+    - set_fact:
+        vpcid: "{{ vpcout.vpc.id }}"
+        pubsub1id: "{{ pubsub1_out.subnet.id }}"
+        pubsub2id: "{{ pubsub2_out.subnet.id }}"
+        pubsub3id: "{{ pubsub3_out.subnet.id }}"
+        privsub1id: "{{ privsub1_out.subnet.id }}"
+        privsub2id: "{{ privsub2_out.subnet.id }}"
+        privsub3id: "{{ privsub3_out.subnet.id }}"
+        igwid: "{{ igw_out.gateway_id }}"
+        pubRTid: "{{ pubRT_out.route_table.id }}"
+        natgw1id: "{{ natgw1_out.nat_gateway_id }}"
+        privRT1id: "{{ privRT1_out.route_table.id }}"
+        natgw3id: "{{ natgw3_out.nat_gateway_id }}"
+        privRT3id: "{{ privRT3_out.route_table.id }}"
+        cacheable: yes
+
+    - name: Create variables file for vpc Output
+      copy:
+        content: "vpcid: {{ vpcout.vpc.id }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprivsub1id: {{ privsub1_out.subnet.id }}\nprivsub2id: {{ privsub2_out.subnet.id }}\nprivsub3id: {{ privsub3_out.subnet.id }}\nigwid: {{ igw_out.gateway_id }}\npubRTid: {{ pubRT_out.route_table.id }}\nnatgw1id: {{ natgw1_out.nat_gateway_id }}\nprivRT1id: {{ privRT1_out.route_table.id }}\nnatgw3id: {{ natgw3_out.nat_gateway_id }}\nprivRT3id: {{ privRT3_out.route_table.id }}"
+
+        dest: vars/output_vars
    ```
 
 
