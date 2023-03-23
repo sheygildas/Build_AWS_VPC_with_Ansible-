@@ -196,7 +196,9 @@ vim test-aws.yml
         name: my_keypair
         region: us-east-2
    ```
-- Try runing this playbook with the command `ansible-playbook test-aws.yml`, you will notice that it faills because python3 is not installed on your Ansible machine.  
+- Try runing this playbook with the command `ansible-playbook test-aws.yml`, you will notice that it faills because python3 is not installed on your Ansible machine.
+
+![Project Image](project-image-url) 
 
 ### :package: Install boto
 
@@ -289,7 +291,7 @@ instanceType: t2.micro
    ```
    
 - Commit and push these two files to GitHub, also clone this repository in our Ansible machine on AWS
-- 
+ 
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
@@ -297,6 +299,65 @@ instanceType: t2.micro
 <br/>
 
 ### :package: Create VPC Setup Playbook
+
+- Create a `vpc_setup.yml` playbook with the details below
+
+```sh
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - name: Import VPC Variables
+      include_vars: vars/vpc_setup
+
+    - name: Create Vprofile VPC
+      ec2_vpc_net:
+        name: "{{vpc_name}}"
+        cidr_block: "{{vpcCidr}}"
+        region: "{{region}}"
+        dns_support: yes
+        dns_hostnames: yes
+        tenancy: default
+        state: "{{state}}"
+      register: vpcout
+   ```
+   
+- Commit and push this file to GitHub, also pull this file in our Ansible machine on AWS
+
+- RUN the play book using the following command on your AWS Ansible machine 
+
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- On your AWS Console search for VPC service to view changes
+
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+#### :package: Create a Subnet Playbook
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+#### :package: Create Internet Gateway and  Public Route Table Playbook
+
+<br/>
+<div align="right">
+    <b><a href="#Project-10">↥ back to top</a></b>
+</div>
+<br/>
+
+#### :package: Create a NAT Gateway and Private Route Table Playbook
 
 <br/>
 <div align="right">
