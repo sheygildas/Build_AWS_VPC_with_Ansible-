@@ -243,6 +243,53 @@ sudo apt install python3-boto3 -y
 
 ### :package: Create Variables File for VPC and Bastion host
 
+- Login into your github account.
+- Let's create a github repository were our ansible-playbooks will be store. Called the repo `ansible-aws-vpc`
+
+- On your IDE, create 2 two variables file `vpc_setup` and s `bastion_setup`.
+
+
+
+Inside the `vpc_setup file`, copy and paste the code below.
+
+
+```sh
+vpc_name: "Vprofile-vpc"
+
+#VPC Range
+vpcCidr: '172.20.0.0./16'
+
+#Subnets Range
+PubSub1Cidr: 172.20.1.0/24
+PubSub2Cidr: 172.20.2.0/24
+PubSub3Cidr: 172.20.3.0/24
+PrivSub1Cidr: 172.20.4.0/24
+PrivSub2Cidr: 172.20.5.0/24
+PrivSub3Cidr: 172.20.6.0/24
+
+#Region Name
+region: "us-east-2"
+
+#Zone Names
+zone1: us-east-2a
+zone2: us-east-2b
+zone3: us-east-2c
+
+state: present
+   ```
+   
+- Inside the `bastion_setupe`, copy and paste the code below.
+
+```sh
+bastion_ami: ami-0beaa649c482330f7 # Amazon Linux-2 AMI-ID from us-east-2 region
+region: us-east-2
+MYIP: IP_address_of_your_laptop/32
+keyName: vprofile-key
+instanceType: t2.micro
+   ```
+   
+- Commit and push these two files to GitHub, also clone this repository in our Ansible machine on AWS
+- 
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
