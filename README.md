@@ -622,7 +622,24 @@ ansible-playbook vpc_setup.ymlo
 
         dest: vars/output_vars
    ```
+   
+   
+- - RUN the play book using the following command on your AWS Ansible machine 
 
+```sh
+ansible-playbook vpc_setup.ymlo
+   ```
+   
+  ![Project Image](project-image-url)
+  
+- Run the following command on your AWS Ansible machine to view that out put file.
+
+```sh
+cat vars/output_vars
+   ```
+   
+  ![Project Image](project-image-url)
+  
 <br/>
 <div align="right">
     <b><a href="#Project-10">↥ back to top</a></b>
